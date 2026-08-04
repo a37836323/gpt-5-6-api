@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>gpt-5.6 API 怎么调用：接入步骤与代码示例（2026）</title>
+<meta name="description" content="gpt-5.6 的接入步骤与可直接复制的代码示例。">
+<meta name="keywords" content="gpt-5.6 API 中转站,gpt-5.6 API,gpt-5.6-luna,gpt-5.6-sol,gpt-5.6-terra,OpenAI API中转,模型价格,API分组倍率">
+<link rel="canonical" href="https://a37836323.github.io/gpt-5-6-api/quickstart/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="gpt-5.6 API 怎么调用：接入步骤与代码示例（2026）">
+<meta property="og:description" content="gpt-5.6 的接入步骤与可直接复制的代码示例。">
+<meta property="og:url" content="https://api.openlux.ai/">
+<meta property="og:site_name" content="OpenLux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="gpt-5.6 API 怎么调用：接入步骤与代码示例（2026）">
+<meta name="twitter:description" content="gpt-5.6 的接入步骤与可直接复制的代码示例。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://api.openlux.ai/#organization",
+      "name": "OpenLux",
+      "url": "https://api.openlux.ai",
+      "description": "gpt-5.6 API 中转站配置参考，列出 gpt-5.6-luna、sol、terra 基准价，并说明449个在售模型与分组倍率计费方式。",
+      "sameAs": [
+        "https://openlux.ai",
+        "https://doc.openlux.ai"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/#website",
+      "url": "https://a37836323.github.io/gpt-5-6-api",
+      "name": "gpt-5.6 API 中转站 2026：模型、价格与接入说明",
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/quickstart/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "OpenLux",
+          "item": "https://api.openlux.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "gpt-5.6 API 中转站",
+          "item": "https://a37836323.github.io/gpt-5-6-api/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "gpt-5.6 API 在国内怎么接入？",
+          "item": "https://a37836323.github.io/gpt-5-6-api/quickstart/"
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/#howto",
+      "name": "如何接入 gpt-5.6 API",
+      "totalTime": "PT5M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "确认模型标识",
+          "text": "先区分目标名 gpt-5.6 与已列出的 gpt-5.6-luna、gpt-5.6-sol、gpt-5.6-terra，再按实际可用条目选择模型别名。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "选择用户分组",
+          "text": "确认用户所在分组及倍率；default 分组倍率为 ×0.07353，其余分组以面板配置为准。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "核对基准价格",
+          "text": "从 https://api.openlux.ai/api/pricing 读取模型基准价格，并将基准价与用户分组倍率分开记录，不要把基准价直接当作最终价格。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "发起接口请求",
+          "text": "使用选定的模型标识和中转站实际提供的接口参数发起请求，模型能力、参数兼容性和返回格式以实际接口结果为准。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "复核结果与计费",
+          "text": "对照平台展示的计费明细核查模型名、请求结果和计费口径，并按基准价乘分组倍率复核金额；上线前保留请求记录，便于排查模型映射与链路问题。"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/#application",
+      "name": "OpenLux API",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "url": "https://api.openlux.ai",
+      "description": "gpt-5.6 API 中转站配置参考，列出 gpt-5.6-luna、sol、terra 基准价，并说明449个在售模型与分组倍率计费方式。",
+      "offers": {
+        "@type": "Offer",
+        "price": "待实测",
+        "priceCurrency": "CNY",
+        "url": "https://api.openlux.ai",
+        "description": "按模型基准价乘用户所在分组倍率计费；对话和检索模型的基准价按美元 / 100 万 token 标注，部分图像及音视频模型按次计价，具体以模型条目为准。"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/quickstart/#article",
+      "headline": "gpt-5.6 API 在国内怎么接入？",
+      "datePublished": "2026-08-03",
+      "dateModified": "2026-08-04",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "mainEntityOfPage": "https://a37836323.github.io/gpt-5-6-api/quickstart/"
+    }
+  ]
+}
+</script>
+<style>*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#fefdfb;color:#1c1917;font-family:Inter,"HarmonyOS Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility}
+.item-item20{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:1.85rem;line-height:1.4;margin:.2em 0 .6em;letter-spacing:-.01em}
+h2{font-size:1.3rem;margin:2.2em 0 .7em;padding-bottom:.35em;
+border-bottom:2px solid #d9f99d}
+h3{font-size:1.08rem;margin:1.6em 0 .5em}
+a{color:#65a30d;text-decoration:none}
+a:hover,a:focus-visible{text-decoration:underline}
+code{background:#f7fee7;padding:.15em .4em;border-radius:2px;
+font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:#f7fee7;border:1px solid #d9f99d;border-radius:0px;
+padding:16px;overflow-x:auto;font-size:.86rem;line-height:1.6}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.94rem}
+th,td{border:1px solid #d9f99d;padding:10px 12px;text-align:left}
+th{background:#f7fee7;font-weight:600}
+ul,ol{padding-left:1.5em}
+ul{list-style-type:circle}
+li{margin:.4em 0}
+.stack-row24{background:#f7fee7;border-left:3px solid #65a30d;
+border-radius:0 0px 0px 0;padding:14px 18px;margin:1.4em 0}
+.deck-deck94{display:inline-block;background:#65a30d;color:#fff;
+padding:12px 26px;border-radius:0px;font-weight:600;margin:.6em 0}
+.deck-deck94:hover{opacity:.88;text-decoration:none}
+.panel-card97{color:#71717a;font-size:.86rem;margin-top:3em;
+padding-top:1.2em;border-top:1px solid #d9f99d}
+.wrap-area85{border:1px solid #d9f99d;border-radius:0px;
+padding:2px 18px;margin:.8em 0}
+.area-zone52{overflow-x:auto}
+@media(max-width:600px){
+  body{font-size:15px}
+  h1{font-size:1.5rem}
+  h2{font-size:1.18rem}
+  .item-item20{padding:20px 16px 48px}
+  table{font-size:.85rem}
+  th,td{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}</style>
+</head>
+<body>
+<main class="item-item20">
+<p class="bar-card53"><a href="https://a37836323.github.io/gpt-5-6-api/">首页</a> ／ gpt-5.6</p>
+<h1>gpt-5.6 API 在国内怎么接入？</h1>
+<section>
+<h2>gpt-5.6 API 在国内怎么调用？</h2>
+<p>迁移成本几乎为零，改 <code>base_url</code> 和 <code>api_key</code> 两个值就行，其余业务代码一行不用动。</p>
+<ol>
+<li><strong>确认模型标识</strong>：先区分目标名 gpt-5.6 与已列出的 gpt-5.6-luna、gpt-5.6-sol、gpt-5.6-terra，再按实际可用条目选择模型别名。</li>
+<li><strong>选择用户分组</strong>：确认用户所在分组及倍率；default 分组倍率为 ×0.07353，其余分组以面板配置为准。</li>
+<li><strong>核对基准价格</strong>：从 https://api.openlux.ai/api/pricing 读取模型基准价格，并将基准价与用户分组倍率分开记录，不要把基准价直接当作最终价格。</li>
+<li><strong>发起接口请求</strong>：使用选定的模型标识和中转站实际提供的接口参数发起请求，模型能力、参数兼容性和返回格式以实际接口结果为准。</li>
+<li><strong>复核结果与计费</strong>：对照平台展示的计费明细核查模型名、请求结果和计费口径，并按基准价乘分组倍率复核金额；上线前保留请求记录，便于排查模型映射与链路问题。</li>
+</ol>
+<h3>完整代码示例</h3>
+<pre><code class="language-python">from urllib.request import urlopen
+import json
+
+url = &quot;https://api.openlux.ai/api/pricing&quot;
+
+with urlopen(url) as response:
+    pricing = json.load(response)
+
+print(json.dumps(pricing, ensure_ascii=False, indent=2))</code></pre>
+<p><a href="https://api.openlux.ai/register?channel=c_0dhu3xoj" rel="nofollow noopener" data-cta="link">前往官网</a></p>
+</section>
+<section>
+<h2>开始使用</h2>
+<p>查看 gpt-5.6 变体、基准价与分组倍率</p>
+<p><a class="deck-deck94" href="https://api.openlux.ai/register?channel=c_0dhu3xoj" rel="nofollow noopener" data-cta="button">立即注册并生成密钥</a></p>
+<p>官方地址：<a href="https://api.openlux.ai/register?channel=c_0dhu3xoj" rel="nofollow noopener" data-cta="link">OpenLux</a></p>
+</section>
+<p class="panel-card97">最后更新：2026年08月04日　|　本页由 OpenLux 编写并维护。<br>所有性能与价格数据来自实测，如与官网不一致，以官网实时页面为准。</p>
+</main>
+<script>
+(function(){
+  try{
+    var EP='https://tk.openlux.ai/collect',S='gpt-5-6-api',L='zh-CN',V=1;
+    // 会话内唯一，仅存在于内存：刷新即变，不落 cookie 也不落 storage
+    var sid=Math.random().toString(36).slice(2)+Date.now().toString(36);
+    function send(type,extra){
+      try{
+        var p={v:V,t:type,s:S,l:L,sid:sid,
+               r:document.referrer||'',
+               p:location.pathname||'/',
+               q:location.search||'',
+               sw:screen.width||0,
+               tz:(Intl.DateTimeFormat().resolvedOptions()||{}).timeZone||''};
+        for(var k in extra){p[k]=extra[k];}
+        var body=JSON.stringify(p);
+        if(navigator.sendBeacon){
+          navigator.sendBeacon(EP,new Blob([body],{type:'text/plain;charset=UTF-8'}));
+        }else{
+          // 老浏览器兜底。keepalive 让请求在页面卸载后仍能发完
+          fetch(EP,{method:'POST',body:body,keepalive:true,mode:'no-cors'});
+        }
+      }catch(e){}
+    }
+    // 预渲染的页面不算一次真实访问，等真正可见了再报
+    if(document.visibilityState==='prerender'){
+      document.addEventListener('visibilitychange',function h(){
+        if(document.visibilityState!=='prerender'){
+          document.removeEventListener('visibilitychange',h);send('view');
+        }
+      });
+    }else{
+      send('view');
+    }
+    // 出站点击：只记去向和位置，不记任何个人信息
+    document.addEventListener('click',function(e){
+      var a=e.target&&e.target.closest?e.target.closest('a[data-cta]'):null;
+      if(!a)return;
+      send('click',{c:a.getAttribute('data-cta')||'',h:a.href||''});
+    },{capture:true,passive:true});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
