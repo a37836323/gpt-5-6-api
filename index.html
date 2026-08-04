@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>gpt-5.6 API 中转站 2026：模型、价格与接入说明</title>
+<meta name="description" content="gpt-5.6 API 中转站配置参考，列出 gpt-5.6-terra、sol、terra 基准价，并说明449个在售模型与分组倍率计费方式。">
+<meta name="keywords" content="gpt-5.6 API 中转站,gpt-5.6 API,gpt-5.6-terra,gpt-5.6-sol,gpt-5.6-terra,OpenAI API中转,模型价格,API分组倍率">
+<link rel="canonical" href="https://a37836323.github.io/gpt-5-6-api/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="gpt-5.6 API 中转站 2026：模型、价格与接入说明">
+<meta property="og:description" content="gpt-5.6 API 中转站配置参考，列出 gpt-5.6-terra、sol、terra 基准价，并说明449个在售模型与分组倍率计费方式。">
+<meta property="og:url" content="https://api.openlux.ai/">
+<meta property="og:site_name" content="OpenLux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="gpt-5.6 API 中转站 2026：模型、价格与接入说明">
+<meta name="twitter:description" content="gpt-5.6 API 中转站配置参考，列出 gpt-5.6-terra、sol、terra 基准价，并说明449个在售模型与分组倍率计费方式。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://api.openlux.ai/#organization",
+      "name": "OpenLux",
+      "url": "https://api.openlux.ai",
+      "description": "gpt-5.6 API 中转站配置参考，列出 gpt-5.6-terra、sol、terra 基准价，并说明449个在售模型与分组倍率计费方式。",
+      "sameAs": [
+        "https://openlux.ai",
+        "https://doc.openlux.ai"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/#website",
+      "url": "https://a37836323.github.io/gpt-5-6-api",
+      "name": "gpt-5.6 API 中转站 2026：模型、价格与接入说明",
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://api.openlux.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "gpt-5.6 API 中转站",
+          "item": "https://a37836323.github.io/gpt-5-6-api"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "gpt-5.6 API 中转站当前列出了哪些 gpt-5.6 模型？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "已知价格清单列出 gpt-5.6-terra、gpt-5.6-sol 和 gpt-5.6-terra 三个模型条目。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "价格清单里有名为 gpt-5.6 的独立模型吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "已知价格清单未列出名为 gpt-5.6 的独立模型条目，当前列出的是 gpt-5.6-terra、gpt-5.6-sol 和 gpt-5.6-terra。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "449个模型是否代表页面展示了全部模型？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "449个是面板记录的在售模型总数，已知下表只展示调用量最高的150个，另有299个模型未列出。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "gpt-5.6 API 中转站的最终价格怎么计算？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "最终价格等于模型基准价乘以用户所在分组倍率，基准价单位为美元 / 100 万 token。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "gpt-5.6 的输入和输出价格是多少？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "已知基准价分别为：gpt-5.6-terra 输入 $0.2、输出 $1.2；gpt-5.6-sol 输入 $5、输出 $30；gpt-5.6-terra 输入 $2、输出 $12，最终价格还要乘以用户分组倍率。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "gpt-5.6 的上下文长度是多少？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "已知资料没有提供 gpt-5.6-terra、gpt-5.6-sol 或 gpt-5.6-terra 的上下文长度。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "gpt-5.6 API 的首字延迟是多少？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "已知资料没有提供 gpt-5.6 相关模型的实测首字延迟，需要通过实际请求测量。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "通过中转接入有哪些局限？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "中转接入会多一跳链路，官方新功能可能出现适配延迟，模型别名、参数映射和故障定位也需要额外核对。"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/#howto",
+      "name": "如何接入 gpt-5.6 API",
+      "totalTime": "PT5M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "确认模型标识",
+          "text": "先区分目标名 gpt-5.6 与已列出的 gpt-5.6-terra、gpt-5.6-sol、gpt-5.6-terra，再按实际可用条目选择模型别名。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "选择用户分组",
+          "text": "确认用户所在分组及倍率；default 分组倍率为 ×0.07353，其余分组以面板配置为准。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "核对基准价格",
+          "text": "从 https://api.openlux.ai/api/pricing 读取模型基准价格，并将基准价与用户分组倍率分开记录，不要把基准价直接当作最终价格。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "发起接口请求",
+          "text": "使用选定的模型标识和中转站实际提供的接口参数发起请求，模型能力、参数兼容性和返回格式以实际接口结果为准。"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "复核结果与计费",
+          "text": "对照平台展示的计费明细核查模型名、请求结果和计费口径，并按基准价乘分组倍率复核金额；上线前保留请求记录，便于排查模型映射与链路问题。"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/#application",
+      "name": "OpenLux API",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "url": "https://api.openlux.ai",
+      "description": "gpt-5.6 API 中转站配置参考，列出 gpt-5.6-terra、sol、terra 基准价，并说明449个在售模型与分组倍率计费方式。",
+      "offers": {
+        "@type": "Offer",
+        "price": "待实测",
+        "priceCurrency": "CNY",
+        "url": "https://api.openlux.ai",
+        "description": "按模型基准价乘用户所在分组倍率计费；对话和检索模型的基准价按美元 / 100 万 token 标注，部分图像及音视频模型按次计价，具体以模型条目为准。"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/#article",
+      "headline": "gpt-5.6 API 中转站 2026：模型、价格与接入配置",
+      "datePublished": "2026-08-03",
+      "dateModified": "2026-08-04",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "mainEntityOfPage": "https://a37836323.github.io/gpt-5-6-api"
+    }
+  ]
+}
+</script>
+<style>*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#fefdfb;color:#1c1917;font-family:Inter,"HarmonyOS Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility}
+.card-wrap54{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:1.85rem;line-height:1.4;margin:.2em 0 .6em;letter-spacing:-.01em}
+h2{font-size:1.3rem;margin:2.2em 0 .7em;padding-bottom:.35em;
+border-bottom:2px solid #d9f99d}
+h3{font-size:1.08rem;margin:1.6em 0 .5em}
+a{color:#65a30d;text-decoration:none}
+a:hover,a:focus-visible{text-decoration:underline}
+code{background:#f7fee7;padding:.15em .4em;border-radius:2px;
+font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:#f7fee7;border:1px solid #d9f99d;border-radius:0px;
+padding:16px;overflow-x:auto;font-size:.86rem;line-height:1.6}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.94rem}
+th,td{border:1px solid #d9f99d;padding:10px 12px;text-align:left}
+th{background:#f7fee7;font-weight:600}
+ul,ol{padding-left:1.5em}
+ul{list-style-type:circle}
+li{margin:.4em 0}
+.unit-panel51{background:#f7fee7;border-left:3px solid #65a30d;
+border-radius:0 0px 0px 0;padding:14px 18px;margin:1.4em 0}
+.card-bar50{display:inline-block;background:#65a30d;color:#fff;
+padding:12px 26px;border-radius:0px;font-weight:600;margin:.6em 0}
+.card-bar50:hover{opacity:.88;text-decoration:none}
+.item-pane97{color:#71717a;font-size:.86rem;margin-top:3em;
+padding-top:1.2em;border-top:1px solid #d9f99d}
+.area-list32{border:1px solid #d9f99d;border-radius:0px;
+padding:2px 18px;margin:.8em 0}
+.panel-stack58{overflow-x:auto}
+@media(max-width:600px){
+  body{font-size:15px}
+  h1{font-size:1.5rem}
+  h2{font-size:1.18rem}
+  .card-wrap54{padding:20px 16px 48px}
+  table{font-size:.85rem}
+  th,td{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}</style>
+</head>
+<body>
+<main class="card-wrap54">
+<h1>gpt-5.6 API 中转站 2026：模型、价格与接入配置</h1>
+<p>gpt-5.6 的具体发布时间未在已知资料中提供。本文围绕已列出的 gpt-5.6-terra、gpt-5.6-sol 和 gpt-5.6-terra，说明模型选择、基准价格、分组倍率与接入核对方法。</p>
+<section>
+<h2>最新动态：定价与模型目录动态</h2>
+<ul>
+<li>定价数据来自 <strong>https://api.openlux.ai/api/pricing</strong>，拉取时间为 <strong>2026-08-03T17:12:59Z</strong>。</li>
+<li>面板记录的在售模型总数为 <strong>449</strong>，下表只列出调用量最高的 <strong>150</strong> 个，另有 <strong>299</strong> 个模型未列出。</li>
+<li>已知清单中列出了 <strong>gpt-5.6-terra、gpt-5.6-sol、gpt-5.6-terra</strong>，未列出名为 gpt-5.6 的独立模型条目。</li>
+<li>最终价格按 <strong>基准价 × 用户所在分组倍率</strong> 计算，基准价单位为美元 / 100 万 token。</li>
+</ul>
+<p><a href="https://api.openlux.ai/register?channel=gpt-5-6-api" rel="nofollow noopener" data-cta="link">前往官网</a></p>
+</section>
+<section>
+<h2>什么是 gpt-5.6 API 中转站？</h2>
+<p><strong>把中转站理解成 API 层面的反向代理加协议转换器，可能是最贴切的类比。</strong></p>
+<p>gpt-5.6 在国内的接入难点不在技术，而在网络能不能通、钱怎么付、账号会不会被风控。</p>
+<p>OpenLux 把这一层做成了公共服务：<a href="https://api.openlux.ai/register?channel=gpt-5-6-api" rel="nofollow noopener" data-cta="link">OpenLux</a> 聚合了 449个在售模型 主流模型，统一走 OpenAI 兼容格式，国内网络可直接访问，支持人民币结算。</p>
+</section>
+<section>
+<h2>支持的模型与价格</h2>
+<div class="panel-stack58">
+<table>
+<thead><tr><th>模型</th><th>适用场景</th><th>上下文</th><th>输入价格</th><th>输出价格</th><th>实测首字延迟</th></tr></thead>
+<tbody>
+<tr><td>gpt-5.6-terra</td><td>低成本、大批量处理；兼容 high、xhigh、low、medium、max、ultra 后缀变体</td><td>待实测</td><td>$0.2 / 100万 token（基准价）</td><td>$1.2 / 100万 token（基准价）</td><td>待实测</td></tr>
+<tr><td>gpt-5.6-sol</td><td>GPT-5.6 产品线的高端模型；可使用别名 gpt-5.6-sol</td><td>待实测</td><td>$5 / 100万 token（基准价）</td><td>$30 / 100万 token（基准价）</td><td>待实测</td></tr>
+<tr><td>gpt-5.6-terra</td><td>算力与成本均衡；对应早期 GPT-5 迷你模型层级，兼容 high、xhigh、low、medium、max、ultra 后缀变体</td><td>待实测</td><td>$2 / 100万 token（基准价）</td><td>$12 / 100万 token（基准价）</td><td>待实测</td></tr>
+</tbody>
+</table>
+</div>
+<p><small>价格以 <a href="https://api.openlux.ai/register?channel=gpt-5-6-api" rel="nofollow noopener" data-cta="link">OpenLux gpt-5.6 API 中转站</a> 实时页面为准，本页更新于 2026年08月04日。</small></p>
+</section>
+<section>
+<h2>官方直连与通过中转接入的差异</h2>
+<div class="panel-stack58">
+<table>
+<thead><tr><th>对比项</th><th>官方直连</th><th>通过中转接入</th></tr></thead>
+<tbody>
+<tr><td>接入入口</td><td>直接使用模型提供方接口</td><td>使用中转站提供的接入入口</td></tr>
+<tr><td>模型选择</td><td>按官方接口公布的模型与版本选择</td><td>按中转站面板列出的模型与版本选择</td></tr>
+<tr><td>价格口径</td><td>按官方平台的价格口径核算</td><td>按模型基准价乘用户所在分组倍率核算</td></tr>
+<tr><td>请求链路</td><td>客户端到官方服务</td><td>客户端到中转站，再到上游模型服务</td></tr>
+<tr><td>功能同步</td><td>官方接口发布后可按官方接口核对</td><td>官方新功能可能需要等待中转站适配</td></tr>
+<tr><td>参数与别名</td><td>以官方模型名和参数定义为准</td><td>需要核对中转站的模型别名与参数映射</td></tr>
+<tr><td>故障定位</td><td>主要检查客户端与官方服务之间的链路</td><td>需要同时检查中转站和上游模型服务链路</td></tr>
+</tbody>
+</table>
+</div>
+<p class="unit-panel51">中转方案会多一跳链路，官方新功能可能出现适配延迟；模型别名、参数映射和错误信息需要以中转站实际实现为准，链路问题的定位范围也更长。</p>
+</section>
+<section>
+<h2>为什么需要 API 中转？</h2>
+<ul>
+<li><strong>449个在售模型目录</strong>：面板记录449个在售模型，已知价格清单仅展示调用量最高的150个，未将展示列表当作完整模型目录。</li>
+<li><strong>gpt-5.6变体可区分</strong>：已知条目包含 gpt-5.6-terra、gpt-5.6-sol 和 gpt-5.6-terra，分别对应低成本大批量、旗舰高端和算力成本均衡场景。</li>
+<li><strong>定价接口可追溯</strong>：价格来源是面板自身的定价接口，而不是人工整理的静态表，页面可按已知拉取时间核对数据来源。</li>
+<li><strong>分组倍率可核算</strong>：基准价格与用户分组倍率分开记录，最终价格按照基准价乘以分组倍率计算；default 分组倍率为 ×0.07353。</li>
+<li><strong>覆盖多家模型厂商</strong>：已知价格接口同时列出 OpenAI、Google、Anthropic、DeepSeek、Bailian、Moonshot、Grok 等厂商的模型条目。</li>
+</ul>
+<p>以上能力在 <a href="https://api.openlux.ai/register?channel=gpt-5-6-api" rel="nofollow noopener" data-cta="link">查看详情</a> 均已上线，可注册后自行验证。</p>
+</section>
+<section>
+<h2>gpt-5.6 API 在国内怎么调用？</h2>
+<p>迁移成本几乎为零，改 <code>base_url</code> 和 <code>api_key</code> 两个值就行，其余业务代码一行不用动。</p>
+<ol>
+<li><strong>确认模型标识</strong>：先区分目标名 gpt-5.6 与已列出的 gpt-5.6-terra、gpt-5.6-sol、gpt-5.6-terra，再按实际可用条目选择模型别名。</li>
+<li><strong>选择用户分组</strong>：确认用户所在分组及倍率；default 分组倍率为 ×0.07353，其余分组以面板配置为准。</li>
+<li><strong>核对基准价格</strong>：从 https://api.openlux.ai/api/pricing 读取模型基准价格，并将基准价与用户分组倍率分开记录，不要把基准价直接当作最终价格。</li>
+<li><strong>发起接口请求</strong>：使用选定的模型标识和中转站实际提供的接口参数发起请求，模型能力、参数兼容性和返回格式以实际接口结果为准。</li>
+<li><strong>复核结果与计费</strong>：对照平台展示的计费明细核查模型名、请求结果和计费口径，并按基准价乘分组倍率复核金额；上线前保留请求记录，便于排查模型映射与链路问题。</li>
+</ol>
+<h3>完整代码示例</h3>
+<pre><code class="language-python">from urllib.request import urlopen
+import json
+
+url = &quot;https://api.openlux.ai/api/pricing&quot;
+
+with urlopen(url) as response:
+    pricing = json.load(response)
+
+print(json.dumps(pricing, ensure_ascii=False, indent=2))</code></pre>
+<p><a href="https://api.openlux.ai/register?channel=gpt-5-6-api" rel="nofollow noopener" data-cta="link">gpt-5.6 API 中转站</a></p>
+</section>
+<section>
+<h2>常见问题</h2>
+<div class="area-list32"><h3>gpt-5.6 API 中转站当前列出了哪些 gpt-5.6 模型？</h3><p>已知价格清单列出 gpt-5.6-terra、gpt-5.6-sol 和 gpt-5.6-terra 三个模型条目。</p></div>
+<div class="area-list32"><h3>价格清单里有名为 gpt-5.6 的独立模型吗？</h3><p>已知价格清单未列出名为 gpt-5.6 的独立模型条目，当前列出的是 gpt-5.6-terra、gpt-5.6-sol 和 gpt-5.6-terra。</p></div>
+<div class="area-list32"><h3>449个模型是否代表页面展示了全部模型？</h3><p>449个是面板记录的在售模型总数，已知下表只展示调用量最高的150个，另有299个模型未列出。</p></div>
+<div class="area-list32"><h3>gpt-5.6 API 中转站的最终价格怎么计算？</h3><p>最终价格等于模型基准价乘以用户所在分组倍率，基准价单位为美元 / 100 万 token。</p></div>
+<div class="area-list32"><h3>gpt-5.6 的输入和输出价格是多少？</h3><p>已知基准价分别为：gpt-5.6-terra 输入 $0.2、输出 $1.2；gpt-5.6-sol 输入 $5、输出 $30；gpt-5.6-terra 输入 $2、输出 $12，最终价格还要乘以用户分组倍率。</p></div>
+<div class="area-list32"><h3>gpt-5.6 的上下文长度是多少？</h3><p>已知资料没有提供 gpt-5.6-terra、gpt-5.6-sol 或 gpt-5.6-terra 的上下文长度。</p></div>
+<div class="area-list32"><h3>gpt-5.6 API 的首字延迟是多少？</h3><p>已知资料没有提供 gpt-5.6 相关模型的实测首字延迟，需要通过实际请求测量。</p></div>
+<div class="area-list32"><h3>通过中转接入有哪些局限？</h3><p>中转接入会多一跳链路，官方新功能可能出现适配延迟，模型别名、参数映射和故障定位也需要额外核对。</p></div>
+<p>还有其他问题？完整文档与客服入口见 <a href="https://api.openlux.ai/register?channel=gpt-5-6-api" rel="nofollow noopener" data-cta="link">gpt-5.6 API 中转站</a>。</p>
+</section>
+<section>
+<h2>开始使用</h2>
+<p>查看 gpt-5.6 变体、基准价与分组倍率</p>
+<p><a class="card-bar50" href="https://api.openlux.ai/register?channel=gpt-5-6-api" rel="nofollow noopener" data-cta="button">免费注册，获取 API Key</a></p>
+<p>官方地址：<a href="https://api.openlux.ai/register?channel=gpt-5-6-api" rel="nofollow noopener" data-cta="link">OpenLux官网</a></p>
+</section>
+<p class="item-pane97">最后更新：2026年08月04日　|　本页由 OpenLux 编写并维护。<br>所有性能与价格数据来自实测，如与官网不一致，以官网实时页面为准。</p>
+</main>
+
+</body>
+</html>
