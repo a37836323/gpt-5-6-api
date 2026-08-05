@@ -86,7 +86,7 @@
       "@id": "https://a37836323.github.io/gpt-5-6-api/compare/#article",
       "headline": "gpt-5.6 用官方直连还是中转？逐项对比",
       "datePublished": "2026-08-03",
-      "dateModified": "2026-08-04",
+      "dateModified": "2026-08-05",
       "inLanguage": "zh-CN",
       "author": {
         "@id": "https://api.openlux.ai/#organization"
@@ -171,6 +171,14 @@ padding:2px 18px;margin:.8em 0}
 <li><a href="https://a37836323.github.io/gpt-5-6-api/pricing/">gpt-5.6 API 多少钱？各版本价格与计费方式</a><span>各版本基准价、计费口径与倍率算法</span></li>
 <li><a href="https://a37836323.github.io/gpt-5-6-api/quickstart/">gpt-5.6 API 在国内怎么接入？</a><span>接入步骤与可直接复制的代码</span></li>
 <li><a href="https://a37836323.github.io/gpt-5-6-api/faq/">gpt-5.6 API 常见问题</a><span>接入时最常遇到的问题</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/gpt-56-api-buy/">2026 年 gpt-5.6 API 国内怎么买</a><span>gpt-5.6 购买渠道与下单</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/gpt-56-api-payment/">没有国际信用卡，gpt-5.6 API 充值该怎么确认支付方式</a><span>gpt-5.6 付款方式</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/api-relay-explained/">理解 API 中转站：请求为何要多经过一层</a><span>了解中转站原理</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/claude-code-gpt-setup/">在 Claude Code 中接入 gpt-5.6，配置项该从哪里确认</a><span>Claude Code 接入核验</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/gpt56-cost-comparison/">gpt-5.6 API 价格怎么选，月成本如何算</a><span>看 gpt-5.6 价格与成本</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/gpt-56-account-risk/">使用 gpt-5.6 API，账号限制风险该怎么判断</a><span>账号限制风险说明</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/gpt-56-free-trial/">gpt-5.6 API 能免费试用吗：先确认额度事实，再决定是否充值</a><span>核验 gpt-5.6 免费额度</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/organization-disabled-error-fix/">遇到 api error 400 this organization has been disabled，先确认问题在哪一层</a><span>组织禁用报错排查</span></li>
 </ul>
 </section>
 <section>
@@ -179,13 +187,12 @@ padding:2px 18px;margin:.8em 0}
 <p><a class="card-layer12" href="https://api.openlux.ai/register?channel=c_0dhu3xoj" rel="nofollow noopener" data-cta="button">注册领取额度，开始调用</a></p>
 <p>官方地址：<a href="https://api.openlux.ai/register?channel=c_0dhu3xoj" rel="nofollow noopener" data-cta="link">前往官网</a></p>
 </section>
-<p class="zone-card67">最后更新：2026年08月04日　|　本页由 OpenLux 编写并维护。<br>所有性能与价格数据来自实测，如与官网不一致，以官网实时页面为准。</p>
+<p class="zone-card67">最后更新：2026年08月05日　|　本页由 OpenLux 编写并维护。<br>所有性能与价格数据来自实测，如与官网不一致，以官网实时页面为准。</p>
 </main>
 <script>
 (function(){
   try{
     var EP='https://tk.openlux.ai/collect',S='gpt-5-6-api',L='zh-CN',V=1;
-    // 会话内唯一，仅存在于内存：刷新即变，不落 cookie 也不落 storage
     var sid=Math.random().toString(36).slice(2)+Date.now().toString(36);
     function send(type,extra){
       try{
@@ -200,12 +207,10 @@ padding:2px 18px;margin:.8em 0}
         if(navigator.sendBeacon){
           navigator.sendBeacon(EP,new Blob([body],{type:'text/plain;charset=UTF-8'}));
         }else{
-          // 老浏览器兜底。keepalive 让请求在页面卸载后仍能发完
           fetch(EP,{method:'POST',body:body,keepalive:true,mode:'no-cors'});
         }
       }catch(e){}
     }
-    // 预渲染的页面不算一次真实访问，等真正可见了再报
     if(document.visibilityState==='prerender'){
       document.addEventListener('visibilitychange',function h(){
         if(document.visibilityState!=='prerender'){
@@ -215,7 +220,6 @@ padding:2px 18px;margin:.8em 0}
     }else{
       send('view');
     }
-    // 出站点击：只记去向和位置，不记任何个人信息
     document.addEventListener('click',function(e){
       var a=e.target&&e.target.closest?e.target.closest('a[data-cta]'):null;
       if(!a)return;
