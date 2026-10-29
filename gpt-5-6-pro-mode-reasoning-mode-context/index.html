@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>gpt-5.6 Pro 模式怎么开：reasoning.mode 设成 pro，不用换 Pro 模型名</title>
+<meta name="description" content="按 OpenAI 官方文档说明 GPT-5.6 的 Pro 模式：在 Responses API 里保留原模型、把 reasoning.mode 设为 pro，推理强度单独设置，token 按所选模型标准价计费；并说明 reasoning.context 默认 all_turns 的含义和验证方法。">
+<meta name="keywords" content="gpt-5.6 API 中转站,gpt-5.6 API,gpt-5.6-luna,gpt-5.6-sol,gpt-5.6-terra,OpenAI API中转,模型价格,API分组倍率">
+<link rel="canonical" href="https://a37836323.github.io/gpt-5-6-api/gpt-5-6-pro-mode-reasoning-mode-context/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="gpt-5.6 Pro 模式怎么开：reasoning.mode 设成 pro，不用换 Pro 模型名">
+<meta property="og:description" content="按 OpenAI 官方文档说明 GPT-5.6 的 Pro 模式：在 Responses API 里保留原模型、把 reasoning.mode 设为 pro，推理强度单独设置，token 按所选模型标准价计费；并说明 reasoning.context 默认 all_turns 的含义和验证方法。">
+<meta property="og:url" content="https://api.openlux.ai/">
+<meta property="og:site_name" content="OpenLux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="gpt-5.6 Pro 模式怎么开：reasoning.mode 设成 pro，不用换 Pro 模型名">
+<meta name="twitter:description" content="按 OpenAI 官方文档说明 GPT-5.6 的 Pro 模式：在 Responses API 里保留原模型、把 reasoning.mode 设为 pro，推理强度单独设置，token 按所选模型标准价计费；并说明 reasoning.context 默认 all_turns 的含义和验证方法。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://api.openlux.ai/#organization",
+      "name": "OpenLux",
+      "url": "https://api.openlux.ai",
+      "description": "gpt-5.6 API 中转站配置参考，列出 gpt-5.6-luna、sol、terra 基准价，并说明449个在售模型与分组倍率计费方式。",
+      "sameAs": [
+        "https://openlux.ai",
+        "https://doc.openlux.ai"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/#website",
+      "url": "https://a37836323.github.io/gpt-5-6-api",
+      "name": "gpt-5.6 API 中转站 2026：模型、价格与接入说明",
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/gpt-5-6-pro-mode-reasoning-mode-context/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "OpenLux",
+          "item": "https://api.openlux.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "gpt-5.6 API 中转站",
+          "item": "https://a37836323.github.io/gpt-5-6-api/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "gpt-5.6 Pro 模式：保留原模型，只改 reasoning.mode",
+          "item": "https://a37836323.github.io/gpt-5-6-api/gpt-5-6-pro-mode-reasoning-mode-context/"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/#application",
+      "name": "OpenLux API",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "url": "https://api.openlux.ai",
+      "description": "gpt-5.6 API 中转站配置参考，列出 gpt-5.6-luna、sol、terra 基准价，并说明449个在售模型与分组倍率计费方式。",
+      "offers": {
+        "@type": "Offer",
+        "price": "待实测",
+        "priceCurrency": "CNY",
+        "url": "https://api.openlux.ai",
+        "description": "按模型基准价乘用户所在分组倍率计费；对话和检索模型的基准价按美元 / 100 万 token 标注，部分图像及音视频模型按次计价，具体以模型条目为准。"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://a37836323.github.io/gpt-5-6-api/gpt-5-6-pro-mode-reasoning-mode-context/#article",
+      "headline": "gpt-5.6 Pro 模式：保留原模型，只改 reasoning.mode",
+      "datePublished": "2026-08-03",
+      "dateModified": "2026-10-29",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "mainEntityOfPage": "https://a37836323.github.io/gpt-5-6-api/gpt-5-6-pro-mode-reasoning-mode-context/"
+    }
+  ]
+}
+</script>
+<style>*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#fefdfb;color:#1c1917;font-family:Inter,"HarmonyOS Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility}
+.row-unit21{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:1.85rem;line-height:1.4;margin:.2em 0 .6em;letter-spacing:-.01em}
+h2{font-size:1.3rem;margin:2.2em 0 .7em;padding-bottom:.35em;
+border-bottom:2px solid #d9f99d}
+h3{font-size:1.08rem;margin:1.6em 0 .5em}
+a{color:#65a30d;text-decoration:none}
+a:hover,a:focus-visible{text-decoration:underline}
+code{background:#f7fee7;padding:.15em .4em;border-radius:2px;
+font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:#f7fee7;border:1px solid #d9f99d;border-radius:0px;
+padding:16px;overflow-x:auto;font-size:.86rem;line-height:1.6}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.94rem}
+th,td{border:1px solid #d9f99d;padding:10px 12px;text-align:left}
+th{background:#f7fee7;font-weight:600}
+ul,ol{padding-left:1.5em}
+ul{list-style-type:circle}
+li{margin:.4em 0}
+.card-layer12{background:#f7fee7;border-left:3px solid #65a30d;
+border-radius:0 0px 0px 0;padding:14px 18px;margin:1.4em 0}
+.item-panel92{display:inline-block;background:#65a30d;color:#fff;
+padding:12px 26px;border-radius:0px;font-weight:600;margin:.6em 0}
+.item-panel92:hover{opacity:.88;text-decoration:none}
+.area-list32{color:#71717a;font-size:.86rem;margin-top:3em;
+padding-top:1.2em;border-top:1px solid #d9f99d}
+.zone-card67{border:1px solid #d9f99d;border-radius:0px;
+padding:2px 18px;margin:.8em 0}
+.card-card10{overflow-x:auto}
+@media(max-width:600px){
+  body{font-size:15px}
+  h1{font-size:1.5rem}
+  h2{font-size:1.18rem}
+  .row-unit21{padding:20px 16px 48px}
+  table{font-size:.85rem}
+  th,td{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}</style>
+</head>
+<body>
+<main class="row-unit21">
+<p data-notice="price-20261025" style="margin:0 0 16px;padding:10px 14px;border:1px solid #f0c36d;background:#fff8e6;color:#5c4400;border-radius:6px;font-size:14px;line-height:1.6">本页价格与模型信息可能已有变化，请以官网为准：<a href="https://www.openlux.ai/pricing?utm_source=gpt-5-6-api&amp;utm_medium=satellite&amp;utm_campaign=price_notice" style="color:#0b57d0">OpenLux 官网价格页</a></p>
+<p class="grid-item99"><a href="https://a37836323.github.io/gpt-5-6-api/">首页</a> ／ gpt-5.6</p>
+<h1>gpt-5.6 Pro 模式：保留原模型，只改 reasoning.mode</h1>
+<p>想用 gpt-5.6 的 Pro 能力，不需要去找 gpt-5.6-pro 这类单独的模型名。OpenAI 最新模型指南写明：使用 Pro 模式时保留你选的 GPT-5.6 模型，在 Responses API 里把 reasoning.mode 设为 pro，不要换成单独的 Pro 模型标识。Pro 模式和推理强度（reasoning.effort）互相独立，不写推理强度时两种模式都默认 medium。本页根据 OpenAI 更新日志、GPT-5.6 最新模型指南和推理指南，说明请求怎么写、费用和延迟怎么变、什么时候该用，以及同样是 GPT-5.6 新默认值的 reasoning.context（all_turns）要注意什么。</p>
+
+<section>
+<h2>GPT-5.6 的 Pro 模式是什么，和换模型名有什么区别？</h2>
+<p>OpenAI 更新日志（https://developers.openai.com/api/docs/changelog）2026 年 7 月 9 日的条目发布了 GPT-5.6 系列：gpt-5.6-sol 面向前沿能力，gpt-5.6-terra 兼顾能力与成本，gpt-5.6-luna 面向高效率、大批量任务；gpt-5.6 这个别名会把请求转给 gpt-5.6-sol。同一条目写明 GPT-5.6 新增了持久化推理、max 推理强度和 Pro 模式。</p>
+<p>最新模型指南（https://developers.openai.com/api/docs/guides/latest-model?model=gpt-5.6）对 Pro 模式的定义是：一种 Responses API 的执行模式，在返回单个最终答案之前对请求投入更多模型工作，可以提高困难任务的可靠性，但会增加延迟，并且把这些工作的 token 汇总计入用量。</p>
+<p>和换模型名的区别：指南明确要求保留所选的 GPT-5.6 模型、只把 reasoning.mode 设为 pro，「不要切换到单独的 Pro 模型标识」，并写明 Pro 模式适用于任意一个 GPT-5.6 模型及其支持的推理强度。也就是说 gpt-5.6-sol、gpt-5.6-terra、gpt-5.6-luna 都可以开 Pro 模式。推理指南（https://developers.openai.com/api/docs/guides/reasoning）另外说明，已有的 Pro 模型 ID 保持原来的行为和价格，这句话针对的是以前就有的 Pro 型号，不是 GPT-5.6 的用法。</p>
+<h2>请求怎么写：reasoning.mode 和 reasoning.effort 分开设</h2>
+<p>推理指南写明：GPT-5.6 和 GPT-6 模型在 Responses API 中支持 standard 和 pro 两种推理模式，standard 是默认值。模式决定用标准还是 Pro 方式执行，reasoning.effort 决定在该模式下推理多少，两者互不影响。</p>
+<p>最小写法是在 Responses 请求（POST /v1/responses）的 reasoning 对象里同时给出两个字段，例如 &quot;model&quot;: &quot;gpt-5.6-sol&quot;, &quot;reasoning&quot;: {&quot;mode&quot;: &quot;pro&quot;, &quot;effort&quot;: &quot;medium&quot;}，input 照常写任务内容。官方示例用的是 gpt-6.1-sol，GPT-5.6 按指南保留自己的模型名即可。</p>
+<p>推理强度方面，最新模型指南写明 GPT-5.6 支持 none、low、medium、high、xhigh、max；不写 reasoning.effort 时，GPT-5.6 在标准和 Pro 两种模式下都默认 medium。指南建议先沿用标准模式下的同一模型和推理强度作为基线，再在代表性任务上比较不同组合，不要默认最高推理强度就是最好的取舍。</p>
+<p>提示词不用改写。指南写明 Pro 模式下继续用标准模式里那份以结果为导向的提示词：说清目标、相关背景、约束、需要的依据、成功标准和输出格式，不需要在提示里要求模型「使用 Pro 模式」「想得更深」或生成多个候选答案。</p>
+<p>官方文档把推理模式写在 Responses API 下，所以要开 Pro 模式，先确认调用走的是 /v1/responses，而不是 Chat Completions。</p>
+<h2>费用和延迟会怎么变？</h2>
+<p>推理指南写明：Pro 模式会汇总生成最终答案所做的模型工作，并按所选模型的标准 token 单价计费；Pro 模式比标准模式做更多的模型工作，因此 token 用量和费用都会增加。最新模型指南也说明 Pro 模式会增加延迟。</p>
+<p>所以开 Pro 模式不是换一个更贵的单价，而是同一个单价下用掉更多 token。比较成本时要看每个成功任务的总 token 和总耗时，而不是只看单价。</p>
+<p>推理 token 本身不可见，但按输出 token 计费，并占用上下文窗口；实际用量在响应 usage 的 output_tokens_details.reasoning_tokens 里。推理指南还提醒：生成的 token 达到上下文上限或 max_output_tokens 时，响应 status 为 incomplete、incomplete_details.reason 为 max_output_tokens，而且可能在出现任何可见输出之前发生，这时输入和推理 token 照样计费。官方建议刚开始试用推理模型时，为推理和输出至少预留 25,000 个 token，再按实际用量调整。</p>
+<p>具体单价以官网价格页为准；通过中转调用时，以平台价格页展示的为准。</p>
+<h2>什么时候该用 Pro 模式，什么时候留在标准模式？</h2>
+<p>最新模型指南给的适用场景是：小幅质量提升会实质影响结果、任务又难到能从中获益的情况，例如复杂优化、高价值的编码或代码审查、有明确评估标准的深度分析。</p>
+<p>指南同时写明，日常任务、对延迟敏感的任务、大批量任务，以及评测没有显示 Pro 模式带来明显收益的情况，优先用标准模式。gpt-5.6-luna 本身面向大批量场景，在它上面开 Pro 模式之前更要先做对比。</p>
+<p>官方建议的比较方法：在同一批代表性任务上分别跑标准模式和 Pro 模式，记录任务成功率、答案完整度、要求的依据是否给全、总 token、延迟和费用，只在质量或可靠性的提升值得额外开销的地方使用 Pro 模式。</p>
+<p>如果你原来在用 xhigh，最新模型指南还建议把 max 推理强度和 xhigh 在代表性任务上比较一次。max 与 Pro 模式是两个独立选项，可以分开测试，不必一起打开。</p>
+<h2>多轮对话：reasoning.context 默认 all_turns 是什么意思？</h2>
+<p>推理指南写明：GPT-5.6 之前的模型在多轮对话中默认不把之前轮次的推理带入下一次生成（current_turn）；GPT-5.6 系列默认把之前轮次可用的推理带入（all_turns）。用 reasoning.context 可以在支持的模型上选择 auto、current_turn 或 all_turns，不写或写 auto 时使用模型默认值。</p>
+<p>all_turns 只有在请求能拿到之前的响应项时才起作用：用 previous_response_id 续接，或者把响应挂到 conversation 上，或者手动回放完整历史。第一轮请求里两种设置效果相同。手动管理历史时，要原样回传之前的用户输入和每一个响应输出项；store 为 false 或开启零数据保留时，要回放 API 默认返回的加密推理项（encrypted_content）。</p>
+<p>推理只能在同一模型系列内复用。官方举例：gpt-5.6-sol、gpt-5.6-terra、gpt-5.6-luna 之间可以互相复用推理，但 GPT-5.6 与 GPT-5.5 系列之间不能；切换系列时，即使设了 all_turns，不兼容的推理也会被省略。</p>
+<p>什么时候改成 current_turn：最新模型指南建议在任务的目标、假设和优先级跨轮次保持稳定时用 all_turns，之前的推理已经不相关时设为 current_turn。推理指南补充说，在回放模型已不再需要的旧响应项时用 current_turn，可以减少长时间运行流程中实际渲染进上下文的内容。</p>
+<h2>通过 OpenLux 调用 gpt-5.6 时要注意什么？</h2>
+<p>模型名以价格接口和 /v1/models 列出的为准。本页核对时（2026-10-29），OpenLux 价格接口列出的 GPT-5.6 模型是 gpt-5.6-sol、gpt-5.6-terra、gpt-5.6-luna 三个，没有单独的 gpt-5.6 别名或 Pro 型号，所以请求里直接写这三个具体名字，再用 reasoning.mode 切换模式。</p>
+<p>Pro 模式走 Responses API：OpenAI 兼容客户端的 Base URL 填 https://api.openlux.ai/v1，请求路径是 /v1/responses。Key 在 OpenLux 控制台的令牌页创建。</p>
+<p>中转是否把 reasoning.mode、reasoning.effort、reasoning.context 原样转给上游，要用实际响应核对，不要只看请求没报错就认为已生效。可以对同一个任务各发一次 standard 和 pro 请求，对比 usage 里的输出 token 和推理 token；多轮场景再看第二轮响应里的 reasoning.context 字段。</p>
+<h2>验证步骤和成功标准</h2>
+<p>第一步，确认入口：带 Key 请求 GET https://api.openlux.ai/v1/models，能列出模型说明地址和 Key 都对；返回 401 说明 Key 错了或没带上。</p>
+<p>第二步，标准模式基线：用 gpt-5.6-sol（或你实际要用的 terra、luna）发一条 Responses 请求，显式写 reasoning.effort，记录 status、可见输出、usage 里的推理 token 和耗时。</p>
+<p>第三步，开 Pro 模式：同一任务、同一推理强度，只加 reasoning.mode 为 pro，再记录同样的数据。按官方说明，Pro 模式比标准模式做更多模型工作，用量和耗时通常会更高；单次结果有波动，可以多跑几次再比，如果多次用量都几乎相同，先检查参数是否真的发到了上游。</p>
+<p>第四步，多轮检查：用 previous_response_id 续接第二轮，查看响应的 reasoning.context 字段是 all_turns 还是 current_turn，确认和你的预期一致。</p>
+<p>成功标准：请求的 model 是具体的 GPT-5.6 模型名而不是自造的 Pro 名称；两种模式都返回 status 为 completed 的完整答案，没有因为 max_output_tokens 被截断；在你的评测集上，Pro 模式带来的质量提升足以抵消多出来的 token 和延迟，否则就留在标准模式。</p>
+<p>还有其他问题？完整文档与客服入口见 <a href="https://api.openlux.ai/register?channel=c_6wi5vgb7" rel="nofollow noopener" data-cta="docs">前往官网</a>。</p>
+</section>
+<section>
+<h2>这个站还有这些内容</h2>
+<ul class="wrap-grid94">
+<li><a href="https://a37836323.github.io/gpt-5-6-api/pricing/">gpt-5.6 API 多少钱？各版本价格与计费方式</a><span>各版本基准价、计费口径与倍率算法</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/quickstart/">gpt-5.6 API 在国内怎么接入？</a><span>接入步骤与可直接复制的代码</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/compare/">gpt-5.6 用官方直连还是中转？逐项对比</a><span>逐项对比，含中转方案的局限</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/faq/">gpt-5.6 API 常见问题</a><span>接入时最常遇到的问题</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/gpt-56-api-buy/">2026 年 gpt-5.6 API 国内怎么买</a><span>gpt-5.6 购买渠道与下单</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/gpt-56-api-payment/">没有国际信用卡，gpt-5.6 API 充值该怎么确认支付方式</a><span>gpt-5.6 付款方式</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/api-relay-explained/">理解 API 中转站：请求为何要多经过一层</a><span>了解中转站原理</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/claude-code-gpt-setup/">在 Claude Code 中接入 gpt-5.6，配置项该从哪里确认</a><span>Claude Code 接入核验</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/gpt56-cost-comparison/">gpt-5.6 API 价格怎么选，月成本如何算</a><span>看 gpt-5.6 价格与成本</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/gpt-56-account-risk/">使用 gpt-5.6 API，账号限制风险该怎么判断</a><span>账号限制风险说明</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/gpt-56-free-trial/">gpt-5.6 API 能免费试用吗：先确认额度事实，再决定是否充值</a><span>核验 gpt-5.6 免费额度</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/organization-disabled-error-fix/">遇到 api error 400 this organization has been disabled，先确认问题在哪一层</a><span>组织禁用报错排查</span></li>
+<li><a href="https://a37836323.github.io/gpt-5-6-api/gpt-5-o3-shutdown-migrate-gpt-5-6/">gpt-5 和 o3 下线前，迁移到 gpt-5.6 要改哪些地方</a><span>gpt-5/o3 下线迁移</span></li>
+</ul>
+</section>
+<section>
+<h2>开始使用</h2>
+<p>查看 gpt-5.6 变体、基准价与分组倍率</p>
+<p><a class="item-panel92" href="https://api.openlux.ai/register?channel=c_6wi5vgb7" rel="nofollow noopener" data-cta="register-bottom">注册后创建 API Key</a></p>
+<p>账号入口：<a href="https://api.openlux.ai/register?channel=c_6wi5vgb7" rel="nofollow noopener" data-cta="link">OpenLux</a></p>
+</section>
+<p class="area-list32">最后更新：2026年10月29日　|　本页由 OpenLux 编写并维护。<br>价格资料以文中标注的数据来源和查询日期为准；未完成的性能测试不作为承诺。实际可用性与计费以控制台为准。</p>
+</main>
+<script>
+(function(){
+  try{
+    var EP='https://tk.openlux.ai/collect',S='gpt-5-6-api',L='zh-CN',V=1;
+    var sid=Math.random().toString(36).slice(2)+Date.now().toString(36);
+    function send(type,extra){
+      try{
+        var p={v:V,t:type,s:S,l:L,sid:sid,
+               r:document.referrer||'',
+               p:location.pathname||'/',
+               q:location.search||'',
+               sw:screen.width||0,
+               tz:(Intl.DateTimeFormat().resolvedOptions()||{}).timeZone||''};
+        for(var k in extra){p[k]=extra[k];}
+        var body=JSON.stringify(p);
+        if(navigator.sendBeacon){
+          navigator.sendBeacon(EP,new Blob([body],{type:'text/plain;charset=UTF-8'}));
+        }else{
+          fetch(EP,{method:'POST',body:body,keepalive:true,mode:'no-cors'});
+        }
+      }catch(e){}
+    }
+    if(document.visibilityState==='prerender'){
+      document.addEventListener('visibilitychange',function h(){
+        if(document.visibilityState!=='prerender'){
+          document.removeEventListener('visibilitychange',h);send('view');
+        }
+      });
+    }else{
+      send('view');
+    }
+    document.addEventListener('click',function(e){
+      var a=e.target&&e.target.closest?e.target.closest('a[data-cta]'):null;
+      if(!a)return;
+      send('click',{c:a.getAttribute('data-cta')||'',h:a.href||''});
+    },{capture:true,passive:true});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
